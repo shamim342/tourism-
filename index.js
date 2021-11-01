@@ -42,6 +42,21 @@ async function run(){
             const result = await orderCollection.deleteOne(query);
             res.json(result);
         })
+
+        //update Status
+        app.patch('/update/:id',(req,res)=>{
+            orderCollection.updateOne(
+              {
+                _id:ObjectId(req.params.id)},
+                {
+                  $set: {status:req.body.value}
+                }
+            )
+            .then((result)=>{
+              res.send(result.modifiedCount>0)
+            })
+         
+         })
     
 
     // 
